@@ -1,4 +1,4 @@
-package com.cloudproject.smartheartrate.ui.notifications
+package com.cloudproject.smartheartrate.ui.monitor
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.cloudproject.smartheartrate.R
 
-class NotificationsFragment : Fragment() {
+class MonitorFragment : Fragment() {
 
-    private lateinit var notificationsViewModel: NotificationsViewModel
+    private lateinit var monitorViewModel: MonitorViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
-                ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
+        monitorViewModel =
+                ViewModelProviders.of(this).get(MonitorViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_monitor, container, false)
+        val textView: TextView = root.findViewById(R.id.text_monitor)
+        monitorViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root
