@@ -12,7 +12,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBaseline_toBaselineOf="parent"
-        android:src="@drawable/monitor_vect"
+        android:src="@drawable/monitor_rect"
         android:paddingHorizontal="12.5dp"
         tools:layout_editor_absoluteX="-8dp"
         tools:layout_editor_absoluteY="52dp" />

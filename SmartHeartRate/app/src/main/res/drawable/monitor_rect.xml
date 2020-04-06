@@ -7,5 +7,5 @@
     android:bottom="5dp" />
     <size android:height="1in"/>
     <corners android:radius="10dp" />
-    <solid android:color="#ce93d8"/>
+    <solid android:color="@color/monitor_rect_color"/>
 </shape>

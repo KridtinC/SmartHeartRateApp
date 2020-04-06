@@ -8,4 +8,5 @@
     <color name="colorGrey">#a6a6a6</color>
     <color name="colorGreyTransparent">#87a6a6a6</color>
     <color name="colorTransparent">#00ffffff</color>
+    <color name="monitor_rect_color">#ce93d8</color>
 </resources>
