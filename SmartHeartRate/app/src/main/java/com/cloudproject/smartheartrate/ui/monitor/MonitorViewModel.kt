@@ -9,5 +9,8 @@ class MonitorViewModel : ViewModel() {
     private val _text = MutableLiveData<String>().apply {
         value = "This is monitor Fragment"
     }
+    public fun getName() {
+
+    }
     val text: LiveData<String> = _text
 }
