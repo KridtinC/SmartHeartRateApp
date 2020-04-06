@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.monitor.MonitorFragment">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1in"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBaseline_toBaselineOf="parent"
+        android:src="@drawable/monitor_vect"
+        android:paddingHorizontal="12.5dp"
+        tools:layout_editor_absoluteX="-8dp"
+        tools:layout_editor_absoluteY="52dp" />
+
     <TextView
         android:id="@+id/text_monitor"
         android:layout_width="match_parent"
