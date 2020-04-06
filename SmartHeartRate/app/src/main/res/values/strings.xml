@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">SmartHeartRate</string>
-    <string name="title_home">Tracking</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
     <string name="title_monitor">Monitor</string>
     <string name="title_elder_list">Elder List</string>
 </resources>
