@@ -11,7 +11,7 @@ exports.addElder = async function (firstName, lastName, age, lat, lng) {
                     if (err != null) {
                         reject({
                             result: "err",
-                            errror: err
+                            error: err
                         })
                     }
                     resolve({ result: "OK" })

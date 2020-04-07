@@ -11,7 +11,7 @@ exports.register = async function (email, password, firstName, lastName) {
                     if (err != null) {
                         reject({
                             result: "err",
-                            errror: err
+                            error: err
                         })
                     }
                     resolve({ result: "OK" })
