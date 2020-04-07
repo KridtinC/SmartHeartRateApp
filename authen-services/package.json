@@ -1,5 +1,5 @@
 {
-  "name": "smartheart_account_services",
+  "name": "smartheart_authen_services",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",

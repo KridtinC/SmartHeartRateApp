@@ -89,3 +89,7 @@ server/config.js
 # account-services
 account-services/node_modules/
 account-services/config.js
+
+# authen-services
+authen-services/node_modules/
+authen-services/config.js
