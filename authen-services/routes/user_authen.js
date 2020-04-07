@@ -7,5 +7,6 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/register', userAuthenCtrl.register)
+router.post('/login', userAuthenCtrl.login)
 
 module.exports = router

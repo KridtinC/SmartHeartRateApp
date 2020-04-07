@@ -6,6 +6,7 @@ exports.addElder = async function (req, res) {
         res.send(results)
     } catch (error) {
         console.log(error)
+        res.status(500)
         res.send(error)
     }
 }
