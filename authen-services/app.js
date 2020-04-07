@@ -13,6 +13,6 @@ app.get('/', function (req, res, next) {
     res.send("This authen-services are running on express-node.js");
 });
 
-// app.use('/api', require('./routes/index'));
+app.use('/api', require('./routes/index'));
 
 app.listen(PORT,()=>console.log(`This app listening at http://localhost:${PORT}`))
