@@ -85,3 +85,7 @@ lint/tmp/
 # server
 server/node_modules/
 server/config.js
+
+# account-services
+account-services/node_modules/
+account-services/config.js
