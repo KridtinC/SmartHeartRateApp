@@ -8,7 +8,7 @@ import com.cloudproject.smartheartrate.authen.LoginActivity
 import com.cloudproject.smartheartrate.authen.RegisterActivity
 
 class MainActivity : AppCompatActivity() {
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
