@@ -26,8 +26,10 @@ class MonitorFragment : Fragment() {
         monitorViewModel = ViewModelProviders.of(this).get(MonitorViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_monitor, container, false)
 //        val textView: TextView = root.findViewById(R.id.text_monitor)
+        val ori = this.resources.configuration.orientation
         recyclerView.apply{
-            layoutManager = LinearLayoutManager(context,)
+            layoutManager = LinearLayoutManager(context)
+            
         }
 
         return root
