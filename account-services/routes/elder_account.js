@@ -7,6 +7,6 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/add-elder', elderAccountCtrl.addElder)
-// router.post('/get-elderlist', elderAccountCtrl.getElderList)
+router.post('/get-elderlist', elderAccountCtrl.getElderList)
 
 module.exports = router
