@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.cloudproject.smartheartrate.R
 import android.util.Log
 import android.widget.Adapter
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MonitorFragment : Fragment() {
@@ -25,7 +26,9 @@ class MonitorFragment : Fragment() {
         monitorViewModel = ViewModelProviders.of(this).get(MonitorViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_monitor, container, false)
 //        val textView: TextView = root.findViewById(R.id.text_monitor)
-
+        recyclerView.apply{
+            layoutManager = LinearLayoutManager(context,)
+        }
 
         return root
     }
