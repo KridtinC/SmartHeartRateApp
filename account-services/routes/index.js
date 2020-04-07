@@ -1,7 +1,7 @@
 // create new Router instance for api routes
 var router = require('express').Router();
 
-router.use('/account', require('./account'));
-// router.use('/monitoring', require('./monitoring'));
+router.use('/elder-account', require('./elder_account'));
+// router.use('/user-account', require('./user_account'));
 
 module.exports = router;

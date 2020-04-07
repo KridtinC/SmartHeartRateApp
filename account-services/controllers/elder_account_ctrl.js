@@ -1,4 +1,4 @@
-const accountModel = require('../models/account_model')
+const accountModel = require('../models/elder_account_model')
 
 exports.addElder = async function (req, res) {
     try {
