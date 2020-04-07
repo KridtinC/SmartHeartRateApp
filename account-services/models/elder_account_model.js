@@ -7,10 +7,20 @@ exports.addElder = async function (firstName, lastName, age, lat, lng) {
                 var sql = "insert into elder (firstName, lastName, age, location)\
                 value (?, ?, ?, point(?, ?))"
                 var params = [firstName, lastName, age, lat, lng]
-                await conn.query(sql, params)
-                resolve()
+                await conn.query(sql, params, (err, res) => {
+                    if (err != null) {
+                        reject({
+                            result: "err",
+                            errror: err
+                        })
+                    }
+                    resolve({ result: "OK" })
+                })
             } catch (error) {
-                reject(error)
+                reject({
+                    result: "err",
+                    error: error
+                })
             } finally {
                 conn.release();
             }

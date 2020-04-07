@@ -3,7 +3,7 @@ const router = express.Router()
 const elderAccountCtrl = require("../controllers/elder_account_ctrl")
 
 router.get('/', function (req, res, next) {
-    res.send("Account API");
+    res.send("Elder Account API");
 });
 
 router.post('/add-elder', elderAccountCtrl.addElder)
