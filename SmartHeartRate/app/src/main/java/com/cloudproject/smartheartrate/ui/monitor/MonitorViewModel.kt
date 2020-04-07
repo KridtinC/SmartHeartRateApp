@@ -11,18 +11,24 @@ class MonitorViewModel : ViewModel() {
 
     private var eldernumb = 3
     private var eldername = arrayListOf<String>("MAKI ADE","KOJO UNO","YUI HATANO")
-    private var elderrate = arrayListOf<Int>(100,120,110)
+    private var elderrate = arrayListOf<String>("100","120","110")
     private var adapter:RecyclerAdapter = RecyclerAdapter(eldername,elderrate)
 
-    public  fun getElderNumber(): Int {
+    fun getElderNumber(): Int {
         return eldernumb
+    }
+    fun getElderName() : ArrayList<String> {
+        return this.eldername
+    }
+    fun getElderRate() : ArrayList<String>{
+        return this.elderrate
     }
     private val _text = MutableLiveData<String>().apply {
         value = "This is monitor Fragment"
     }
 
     val text: LiveData<String> = _text
-    fun ViewGroup.inflate(layoutRes:Int,attachToRoot:Boolean=false):View {
-        return LayoutInflater.from(context).inflate(layoutRes,this,attachToRoot)
-    }
+//    fun ViewGroup.inflate(layoutRes:Int,attachToRoot:Boolean=false):View {
+//        return LayoutInflater.from(context).inflate(layoutRes,this,attachToRoot)
+//    }
 }

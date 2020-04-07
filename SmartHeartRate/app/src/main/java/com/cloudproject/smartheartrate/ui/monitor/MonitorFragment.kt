@@ -15,24 +15,30 @@ import android.util.Log
 import android.widget.Adapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_monitor.*
 
 class MonitorFragment : Fragment() {
     private lateinit var monitorViewModel: MonitorViewModel
-    private lateinit var recyclerView :RecyclerView
-    private lateinit var viewadapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager : RecyclerView.LayoutManager
+//    private lateinit var recyclerView :RecyclerView
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         monitorViewModel = ViewModelProviders.of(this).get(MonitorViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_monitor, container, false)
-//        val textView: TextView = root.findViewById(R.id.text_monitor)
-        val ori = this.resources.configuration.orientation
-        recyclerView.apply{
-            layoutManager = LinearLayoutManager(context)
-            
-        }
-
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val viewAdapter = RecyclerAdapter(monitorViewModel.getElderName(),monitorViewModel.getElderRate())
+        val ori = resources.configuration.orientation
+        monitor_recyclerView.apply{
+            layoutManager = LinearLayoutManager(context,ori,false)
+            adapter = viewAdapter
+            onFlingListener = null
+        }
+        viewAdapter.notifyDataSetChanged()
     }
 
 
