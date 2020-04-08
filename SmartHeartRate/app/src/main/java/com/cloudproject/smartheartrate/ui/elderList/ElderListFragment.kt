@@ -14,8 +14,8 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.cloudproject.smartheartrate.R
-import com.cloudproject.smartheartrate.ui.home.ElderListAdapter
 import com.google.gson.Gson
+import com.google.gson.internal.LinkedTreeMap
 import kotlinx.android.synthetic.main.fragment_elder_list.*
 import org.json.JSONObject
 
@@ -23,6 +23,8 @@ import org.json.JSONObject
 class ElderListFragment : Fragment() {
 
     private lateinit var elderListViewModel: ElderListViewModel
+    private lateinit var elderListAdapter: ElderListAdapter
+    private lateinit var elderData: ArrayList<Any>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,11 +50,6 @@ class ElderListFragment : Fragment() {
         }
         val exampleData = addExampleData()
         getElderData()
-        val elderListAdapter = ElderListAdapter(exampleData)
-        recyclerElders.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = elderListAdapter
-        }
     }
 
     private fun addExampleData(): Array<Array<String>> {
@@ -63,7 +60,6 @@ class ElderListFragment : Fragment() {
     }
 
     private fun getElderData() {
-        Log.d("ElderList", "test")
         val queue = Volley.newRequestQueue(context)
         val url = "http://192.168.1.37:5000/api/elder-account/get-elderlist"
         val params: MutableMap<String?, String?> = HashMap()
@@ -74,11 +70,19 @@ class ElderListFragment : Fragment() {
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.POST, url, parameters,
             Response.Listener { response ->
-                val results: HashMap<String, Any> = Gson().fromJson(
-                    response.toString(),
-                    HashMap::class.java
-                ) as HashMap<String, Any>
-                Log.d("ElderList", "Response: + ${results["result"]}")
+                val results: ArrayList<LinkedTreeMap<String, Any>> = Gson().fromJson(
+                    response["result"].toString(),
+                    ArrayList::class.java
+                ) as ArrayList<LinkedTreeMap<String, Any>>
+                Log.d("ElderList", "Response: + ${results}")
+                elderListAdapter =
+                    ElderListAdapter(
+                        results
+                    )
+                recyclerElders.apply {
+                    layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                    adapter = elderListAdapter
+                }
             },
             Response.ErrorListener { error ->
                 Log.e("ElderList", error.toString())
