@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="10dp"
-    app:cardElevation="3dp"
+    app:cardElevation="2dp"
     app:cardUseCompatPadding="true"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
@@ -17,8 +17,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="8dp"
             android:text="First Name"
+            android:textSize="24sp"
             android:id="@+id/elderFirstName"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -27,8 +28,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="8dp"
             android:text="Last Name"
+            android:textSize="24sp"
             android:id="@+id/elderLastName"
             app:layout_constraintLeft_toRightOf="@id/elderFirstName"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -36,28 +38,31 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="4dp"
             android:text="Age:"
+            android:textSize="16sp"
             android:id="@+id/elderAgeDesc"
-            app:layout_constraintLeft_toRightOf="@id/elderLastName"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/elderFirstName"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="4dp"
             android:text="Age"
+            android:textSize="16sp"
             android:id="@+id/elderAge"
             app:layout_constraintLeft_toRightOf="@id/elderAgeDesc"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/elderFirstName"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="4dp"
             android:text="Device ID:"
+            android:textSize="16sp"
             android:id="@+id/elderDeviceIDDesc"
-            app:layout_constraintTop_toBottomOf="@id/elderFirstName"
+            app:layout_constraintTop_toBottomOf="@id/elderAgeDesc"
             app:layout_constraintLeft_toLeftOf="parent"
             />
 
@@ -65,16 +70,18 @@
             android:id="@+id/elderDeviceID"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="4dp"
             android:text="Device ID"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/elderDeviceIDDesc"
-            app:layout_constraintTop_toBottomOf="@id/elderFirstName" />
+            app:layout_constraintTop_toBottomOf="@id/elderAgeDesc" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="4dp"
             android:text="Location:"
+            android:textSize="16sp"
             android:id="@+id/elderLocationDesc"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -83,8 +90,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="4dp"
             android:text="Lat"
+            android:textSize="16sp"
             android:id="@+id/elderLat"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/elderDeviceIDDesc"
@@ -93,8 +101,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="4dp"
             android:text="Lng"
+            android:textSize="16sp"
             android:id="@+id/elderLng"
             app:layout_constraintLeft_toRightOf="@id/elderLat"
             app:layout_constraintBottom_toBottomOf="parent"
