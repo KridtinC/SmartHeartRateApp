@@ -59,12 +59,21 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         } else {
             fusedLocationClient.lastLocation
                 .addOnSuccessListener { location: Location? ->
-                    mLocation = location
-                    Toast.makeText(
-                        context!!,
-                        mLocation!!.latitude.toString() + "," + mLocation!!.longitude.toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    if (location == null) {
+                        Toast.makeText(
+                            context!!,
+                            "Please turn on your GPS.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    else {
+                        mLocation = location
+                        Toast.makeText(
+                            context!!,
+                            mLocation!!.latitude.toString() + "," + mLocation!!.longitude.toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                     val mapView: MapView = view!!.findViewById<View>(R.id.map) as MapView
                     mapView.onCreate(null)
                     mapView.onResume()
@@ -74,8 +83,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     }
 
 
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
+    ) {
         when (requestCode) {
             MY_PERMISSIONS_REQUEST_ACCESS_LOCATION -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
