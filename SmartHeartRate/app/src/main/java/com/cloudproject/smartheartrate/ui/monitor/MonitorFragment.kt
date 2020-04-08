@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_monitor.*
+import kotlinx.android.synthetic.main.monitor_list.*
 
 class MonitorFragment : Fragment() {
     private lateinit var monitorViewModel: MonitorViewModel

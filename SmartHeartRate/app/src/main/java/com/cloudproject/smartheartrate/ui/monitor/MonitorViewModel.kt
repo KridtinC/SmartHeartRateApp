@@ -12,8 +12,6 @@ class MonitorViewModel : ViewModel() {
     private var eldernumb = 3
     private var eldername = arrayListOf<String>("MAKI ADE","KOJO UNO","YUI HATANO")
     private var elderrate = arrayListOf<String>("100","120","110")
-    private var adapter:RecyclerAdapter = RecyclerAdapter(eldername,elderrate)
-
     fun getElderNumber(): Int {
         return eldernumb
     }

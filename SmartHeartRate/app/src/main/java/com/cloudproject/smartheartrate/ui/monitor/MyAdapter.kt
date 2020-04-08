@@ -12,7 +12,7 @@ import kotlin.properties.Delegates
 
 
 class RecyclerAdapter(private val eldername_list: ArrayList<String>, private val elderrate_list: ArrayList<String>) : RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>()  {
-    class MyViewHolder(private var textview : TextView):RecyclerView.ViewHolder(textview) , View.OnClickListener{
+    class MyViewHolder(private var textview : View):RecyclerView.ViewHolder(textview) , View.OnClickListener{
 
         fun bindElder(eldernamed:String,elderrated:String){
             textview.findViewById<TextView>(R.id.monitor_name).text = eldernamed
@@ -26,7 +26,7 @@ class RecyclerAdapter(private val eldername_list: ArrayList<String>, private val
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val textview = LayoutInflater.from(parent.context).inflate(R.layout.fragment_monitor,parent,false) as TextView
+        val textview = LayoutInflater.from(parent.context).inflate(R.layout.monitor_list,parent,false)
         return MyViewHolder(textview)
     }
 
