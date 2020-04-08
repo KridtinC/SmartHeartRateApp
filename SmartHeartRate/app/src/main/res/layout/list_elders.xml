@@ -37,8 +37,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:text="Age"
-            android:id="@+id/elderAge"
+            android:text="Age:"
+            android:id="@+id/elderAgeDesc"
             app:layout_constraintLeft_toRightOf="@id/elderLastName"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -46,11 +46,39 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:text="Device ID"
-            android:id="@+id/elderDeviceID"
+            android:text="Age"
+            android:id="@+id/elderAge"
+            app:layout_constraintLeft_toRightOf="@id/elderAgeDesc"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:text="Device ID:"
+            android:id="@+id/elderDeviceIDDesc"
             app:layout_constraintTop_toBottomOf="@id/elderFirstName"
             app:layout_constraintLeft_toLeftOf="parent"
             />
+
+        <TextView
+            android:id="@+id/elderDeviceID"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:text="Device ID"
+            app:layout_constraintStart_toEndOf="@+id/elderDeviceIDDesc"
+            app:layout_constraintTop_toBottomOf="@id/elderFirstName" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:text="Location:"
+            android:id="@+id/elderLocationDesc"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/elderDeviceIDDesc"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -58,9 +86,9 @@
             android:layout_margin="10dp"
             android:text="Lat"
             android:id="@+id/elderLat"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/elderDeviceID"/>
+            app:layout_constraintTop_toBottomOf="@id/elderDeviceIDDesc"
+            app:layout_constraintLeft_toRightOf="@id/elderLocationDesc"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -70,7 +98,7 @@
             android:id="@+id/elderLng"
             app:layout_constraintLeft_toRightOf="@id/elderLat"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/elderDeviceID"/>
+            app:layout_constraintTop_toBottomOf="@id/elderDeviceIDDesc"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
