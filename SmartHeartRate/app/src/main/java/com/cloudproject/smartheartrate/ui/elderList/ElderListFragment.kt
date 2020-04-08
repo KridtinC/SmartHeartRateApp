@@ -1,7 +1,6 @@
 package com.cloudproject.smartheartrate.ui.elderList
 
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -21,7 +21,6 @@ import com.android.volley.toolbox.Volley
 import com.cloudproject.smartheartrate.R
 import com.google.gson.Gson
 import com.google.gson.internal.LinkedTreeMap
-import kotlinx.android.synthetic.main.dialog_add_elder.*
 import kotlinx.android.synthetic.main.fragment_elder_list.*
 import org.json.JSONObject
 
@@ -30,7 +29,6 @@ class ElderListFragment : Fragment() {
 
     private lateinit var elderListViewModel: ElderListViewModel
     private lateinit var elderListAdapter: ElderListAdapter
-    private lateinit var elderData: ArrayList<Any>
     private lateinit var queue: RequestQueue
     private val hostname = "192.168.1.37"
     private val email = "aaa@gmail.com"
@@ -54,13 +52,17 @@ class ElderListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        queue = Volley.newRequestQueue(context)
+        getElderData()
+
         buttonAddElder.setOnClickListener {
             Toast.makeText(context, "Add", Toast.LENGTH_SHORT).show()
             onCreateDialog()
         }
-//        val exampleData = addExampleData()
-        queue = Volley.newRequestQueue(context)
-        getElderData()
+        swipeContainer.setOnRefreshListener {
+            getElderData()
+            swipeContainer.isRefreshing = false
+        }
     }
 
     private fun onCreateDialog(): Dialog {
