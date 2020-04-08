@@ -18,7 +18,7 @@ class ElderListAdapter(private val items: ArrayList<LinkedTreeMap<String, Any>>)
                 elderFirstName.text = elder["firstName"] as CharSequence?
                 elderLastName.text = elder["lastName"] as CharSequence?
                 elderAge.text = (elder["age"] as Double?)?.toInt().toString()
-                elderDeviceID.text = (elder["deviceID_elder"] as Double?)?.toInt().toString()
+                elderDeviceID.text = (elder["deviceID"] as Double?)?.toInt().toString()
                 elderLat.text = (elder["lat"] as Double?).toString()
                 elderLng.text = (elder["lng"] as Double?).toString()
             }

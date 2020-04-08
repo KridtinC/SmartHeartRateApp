@@ -104,11 +104,17 @@ class ElderListFragment : Fragment() {
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-    private fun addExampleData(): Array<Array<String>> {
-        return arrayOf(
-            arrayOf("1234", "Kridtin", "C", "22", "10.0", "20.0"),
-            arrayOf("5678", "Josh", "W", "60", "15.0", "21.0")
-        )
+    private fun addExampleData(): ArrayList<LinkedTreeMap<String, Any>> {
+        val data: ArrayList<LinkedTreeMap<String, Any>> = ArrayList()
+        val elder: LinkedTreeMap<String, Any> = LinkedTreeMap()
+        elder["firstName"] = "Adam"
+        elder["lastName"] = "Smith"
+        elder["age"] = 23.0
+        elder["deviceID"] = 1345695.0
+        elder["lat"] = 13.025648
+        elder["lng"] = 102.154896
+        data.add(elder)
+        return data
     }
 
     private fun getElderData() {
@@ -126,18 +132,20 @@ class ElderListFragment : Fragment() {
                     ArrayList::class.java
                 ) as ArrayList<LinkedTreeMap<String, Any>>
                 Log.d("ElderList", "Response: + $results")
-                elderListAdapter =
-                    ElderListAdapter(
-                        results
-                    )
+                elderListAdapter = ElderListAdapter(results)
                 recyclerElders.apply {
-                    layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                    layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                     adapter = elderListAdapter
                 }
             },
             Response.ErrorListener { error ->
                 Log.e("ElderList", error.toString())
+                elderListAdapter = ElderListAdapter(addExampleData())
+                recyclerElders.apply {
+                    layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                    adapter = elderListAdapter
+                }
+
             }
         )
         queue.add(jsonObjectRequest)
