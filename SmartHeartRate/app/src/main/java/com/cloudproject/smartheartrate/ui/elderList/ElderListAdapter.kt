@@ -36,4 +36,9 @@ class ElderListAdapter(private val items: ArrayList<LinkedTreeMap<String, Any>>)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(items[position])
     }
+
+    fun clear(){
+        items.clear()
+        notifyDataSetChanged()
+    }
 }
