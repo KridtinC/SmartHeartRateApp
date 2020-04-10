@@ -119,7 +119,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             )
         }
         mGoogleMap.clear()
-        model.getElderList(true).observe(viewLifecycleOwner, Observer { item ->
+        model.getElderList(false).observe(viewLifecycleOwner, Observer { item ->
             if (item != null){
                 for (i in item){
                     val markerOptions = MarkerOptions()
