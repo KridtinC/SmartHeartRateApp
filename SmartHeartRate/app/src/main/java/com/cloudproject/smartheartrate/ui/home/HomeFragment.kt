@@ -13,16 +13,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.cloudproject.smartheartrate.R
 import com.cloudproject.smartheartrate.ui.SharedViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapView
-import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 
 
@@ -107,20 +104,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mGoogleMap = googleMap
         mGoogleMap.isMyLocationEnabled = true;
-        if (mLocation != null) {
-            mGoogleMap.animateCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                    LatLng(
-                        mLocation!!.latitude,
-                        mLocation!!.longitude
-                    ),
-                    15F
-                )
-            )
-        }
         mGoogleMap.clear()
         model.getElderList(false).observe(viewLifecycleOwner, Observer { item ->
             if (item != null){
+                val builder = LatLngBounds.Builder()
                 for (i in item){
                     val markerOptions = MarkerOptions()
                     val latLng = LatLng(i.lat, i.lng)
@@ -128,7 +115,12 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                     markerOptions.title(latLng.latitude.toString() + " : " + latLng.longitude.toString())
 //                googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
                     mGoogleMap.addMarker(markerOptions)
+                    builder.include(latLng)
                 }
+                builder.include(LatLng(mLocation!!.latitude, mLocation!!.longitude))
+                val bounds = builder.build()
+                val cu: CameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 200)
+                googleMap.animateCamera(cu)
             }
         })
     }
