@@ -117,7 +117,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                     mGoogleMap.addMarker(markerOptions)
                     builder.include(latLng)
                 }
-                builder.include(LatLng(mLocation!!.latitude, mLocation!!.longitude))
+                if (mLocation != null)
+                    builder.include(LatLng(mLocation!!.latitude, mLocation!!.longitude))
                 val bounds = builder.build()
                 val cu: CameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 200)
                 googleMap.animateCamera(cu)
