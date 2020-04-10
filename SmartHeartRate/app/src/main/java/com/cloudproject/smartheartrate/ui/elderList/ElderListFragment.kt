@@ -1,9 +1,8 @@
 package com.cloudproject.smartheartrate.ui.elderList
 
 import android.app.Dialog
-import android.content.Context
-import android.os.AsyncTask
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,10 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.volley.Request
-import com.android.volley.RequestQueue
-import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.cloudproject.smartheartrate.R
 import com.cloudproject.smartheartrate.model.Elder
@@ -50,29 +45,24 @@ class ElderListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         model.getElderList().observe(viewLifecycleOwner, Observer { item ->
-            elderList = item
-            if (::elderList.isInitialized) {
-                if (elderList.size > 0) {
-                    Log.d("ElderListFragment", elderList.toString())
-                        elderListAdapter = ElderListAdapter(elderList)
-                    recyclerElders.apply {
-                        layoutManager =
-                            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                        adapter = elderListAdapter
-                    }
-                    progressBarElderList.visibility = View.INVISIBLE
-                }
-            }
-        })
-        model.isFetchElderListSuccess().observe(viewLifecycleOwner, Observer { item ->
-            if (item == false){
+            if (item == null) {
+                elderListAdapter = ElderListAdapter(addExampleData())
                 Toast.makeText(context, "Cannot fetch data from server. Please check your internet connection.", Toast.LENGTH_SHORT).show()
             }
+            else{
+                Log.d("ElderListFragment", item.toString())
+                elderListAdapter = ElderListAdapter(item)
+            }
+            recyclerElders.apply {
+                layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                adapter = elderListAdapter
+            }
+            progressBarElderList.visibility = View.INVISIBLE
         })
 
-
         buttonAddElder.setOnClickListener {
-//            onCreateDialog()
+            onCreateDialog()
         }
         swipeContainer.setOnRefreshListener {
 //            LongOperation(context!!, view).execute()
@@ -80,43 +70,45 @@ class ElderListFragment : Fragment() {
         }
     }
 
-//    private fun onCreateDialog(): Dialog {
-//        return activity?.let {
-//            val builder = AlertDialog.Builder(it)
-//            val inflater = requireActivity().layoutInflater;
-//            val view = inflater.inflate(R.layout.dialog_add_elder, null)
-//            builder.setView(view)
-//                .setPositiveButton(
-//                    "Add"
-//                ) { dialog, _ ->
-//                    val body: MutableMap<String, Any> = HashMap()
-//                    body["firstName"] = view.findViewById<EditText>(R.id.addElderFirstName).text
-//                    body["lastName"] = view.findViewById<EditText>(R.id.addElderLastName).text
-//                    body["age"] = view.findViewById<EditText>(R.id.addElderAge).text
-//                    body["lat"] = view.findViewById<EditText>(R.id.addElderLat).text
-//                    body["lng"] = view.findViewById<EditText>(R.id.addElderLng).text
-//                    body["email"] = email
-//
-//                    val url = "http://$hostname:5000/api/elder-account/add-elder"
-//                    val parameters = JSONObject(body.toString())
-//                    val jsonObjectRequest = JsonObjectRequest(
-//                        Request.Method.POST, url, parameters,
-//                        Response.Listener { response ->
-//                            Log.d("ElderList", "Response: + $response")
-//                        },
-//                        Response.ErrorListener { error ->
-//                            Log.e("ElderList", error.toString())
-//                        }
-//                    )
-//                    queue.add(jsonObjectRequest)
-//                }
-//                .setNegativeButton(
-//                    "Cancel"
-//                ) { dialog, _ ->
-//                    dialog.cancel()
-//                }
-//            builder.show()
-//        } ?: throw IllegalStateException("Activity cannot be null")
-//    }
+    private fun onCreateDialog(): Dialog {
+        return activity?.let {
+            val builder = AlertDialog.Builder(it)
+            val inflater = requireActivity().layoutInflater;
+            val view = inflater.inflate(R.layout.dialog_add_elder, null)
+            builder.setView(view)
+                .setPositiveButton(
+                    "Add"
+                ) { dialog, _ ->
+                    val firstName = view.findViewById<EditText>(R.id.addElderFirstName).text.toString()
+                    val lastName = view.findViewById<EditText>(R.id.addElderLastName).text.toString()
+                    val age = view.findViewById<EditText>(R.id.addElderAge).text.toString().toInt()
+                    val lat = view.findViewById<EditText>(R.id.addElderLat).text.toString().toDouble()
+                    val lng = view.findViewById<EditText>(R.id.addElderLng).text.toString().toDouble()
+                    val elder = Elder(-1, firstName, lastName, age, lat , lng)
+                    model.addElder(elder).observe(viewLifecycleOwner, Observer { item ->
+                        if (item != null){
+                            if (item == true)
+                                Toast.makeText(context, "Add successful", Toast.LENGTH_SHORT).show()
+                            else
+                                Toast.makeText(context, "Add fail", Toast.LENGTH_SHORT).show()
+                        }
+
+                    })
+
+                }
+                .setNegativeButton(
+                    "Cancel"
+                ) { dialog, _ ->
+                    dialog.cancel()
+                }
+            builder.show()
+        } ?: throw IllegalStateException("Activity cannot be null")
+    }
+
+    private fun addExampleData(): ArrayList<Elder> {
+        val data: ArrayList<Elder> = ArrayList()
+        data.add(Elder(156487, "Adam", "Smith", 22, 13.145678, 120.147896))
+        return data
+    }
 }
 

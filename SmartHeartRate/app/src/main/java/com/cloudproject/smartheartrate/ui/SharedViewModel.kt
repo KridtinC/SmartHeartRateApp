@@ -8,7 +8,7 @@ import com.cloudproject.smartheartrate.ui.repository.ElderRepository
 
 class SharedViewModel: ViewModel() {
     private var _elderList = MutableLiveData<ArrayList<Elder>>()
-    private var _isSuccess = MutableLiveData<Boolean>()
+    private var _addSuccess = MutableLiveData<Boolean>()
     private var elderRepository = ElderRepository()
 
     fun getElderList(): LiveData<ArrayList<Elder>> {
@@ -16,8 +16,8 @@ class SharedViewModel: ViewModel() {
         return _elderList
     }
 
-    fun isFetchElderListSuccess(): LiveData<Boolean> {
-        _isSuccess = elderRepository.isFetchElderListSuccess()
-        return _isSuccess
+    fun addElder(elder: Elder): MutableLiveData<Boolean> {
+        _addSuccess = elderRepository.addElder(elder)
+        return _addSuccess
     }
 }

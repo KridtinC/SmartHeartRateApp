@@ -2,8 +2,9 @@ package com.cloudproject.smartheartrate.ui.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.cloudproject.smartheartrate.model.AddElderResponse
 import com.cloudproject.smartheartrate.model.Elder
-import com.cloudproject.smartheartrate.model.ElderList
+import com.cloudproject.smartheartrate.model.ElderListResponse
 import com.cloudproject.smartheartrate.network.AccountServices
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,7 +17,6 @@ private const val email = "aaa@gmail.com"
 
 class ElderRepository {
 
-    private var isSuccess: Boolean = true
     private val retrofit = Retrofit.Builder()
         .baseUrl("http://$hostname:5000/api/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -28,36 +28,50 @@ class ElderRepository {
         val body: HashMap<String, String> = HashMap()
         body["email"] = email
 
-        var req: Call<ElderList> = retrofit.create(AccountServices::class.java).getElderList(body)
-        req.enqueue(object : Callback<ElderList?> {
-            override fun onResponse(call: Call<ElderList?>, response: Response<ElderList?>) {
+        var req: Call<ElderListResponse> = retrofit.create(AccountServices::class.java).getElderList(body)
+        req.enqueue(object : Callback<ElderListResponse?> {
+            override fun onResponse(call: Call<ElderListResponse?>, response: Response<ElderListResponse?>) {
                 if (response.isSuccessful) {
-                    elderList.value = response.body()?.elderList
-                    isSuccess = true
+                    elderList.value = response.body()?.result
                 } else {
                     Log.e("ElderRepo", "onResponse: " + response.errorBody())
-                    isSuccess = false
                 }
             }
 
-            override fun onFailure(call: Call<ElderList?>, t: Throwable) {
-                elderList.value = addExampleData()
+            override fun onFailure(call: Call<ElderListResponse?>, t: Throwable) {
+                elderList.value = null
                 Log.e("ElderRepo", "onFailure: " + t.message)
-                isSuccess = false
             }
         })
         return elderList
     }
 
-    private fun addExampleData(): ArrayList<Elder> {
-        val data: ArrayList<Elder> = ArrayList()
-        data.add(Elder(156487, "Adam", "Smith", 22, 13.145678, 120.147896))
-        return data
-    }
+    fun addElder(elder: Elder): MutableLiveData<Boolean> {
+        val addSuccess: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+        val body: HashMap<String, String> = HashMap()
+        body["email"] = email
+        body["firstName"] = elder.firstName
+        body["lastName"] = elder.lastName
+        body["age"] = elder.age.toString()
+        body["lat"] = elder.lat.toString()
+        body["lng"] = elder.lng.toString()
 
-    fun isFetchElderListSuccess(): MutableLiveData<Boolean> {
-        val isSuccessLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-        isSuccessLiveData.value = isSuccess
-        return isSuccessLiveData
+        var req: Call<AddElderResponse> = retrofit.create(AccountServices::class.java).addElder(body)
+        req.enqueue(object : Callback<AddElderResponse?> {
+            override fun onResponse(call: Call<AddElderResponse?>, response: Response<AddElderResponse?>) {
+                if (response.isSuccessful) {
+                    addSuccess.value = true
+                } else {
+                    Log.e("ElderRepo", "onResponse: " + response.errorBody())
+                    addSuccess.value = false
+                }
+            }
+
+            override fun onFailure(call: Call<AddElderResponse?>, t: Throwable) {
+                addSuccess.value = false
+                Log.e("ElderRepo", "onFailure: " + t.message)
+            }
+        })
+        return addSuccess
     }
 }
