@@ -34,6 +34,7 @@ class ElderRepository {
                 if (response.isSuccessful) {
                     elderList.value = response.body()?.result
                 } else {
+                    elderList.value = null
                     Log.e("ElderRepo", "onResponse: " + response.errorBody())
                 }
             }

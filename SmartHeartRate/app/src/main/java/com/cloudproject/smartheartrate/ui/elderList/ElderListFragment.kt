@@ -2,7 +2,6 @@ package com.cloudproject.smartheartrate.ui.elderList
 
 import android.app.Dialog
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,22 +13,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.volley.toolbox.Volley
 import com.cloudproject.smartheartrate.R
 import com.cloudproject.smartheartrate.model.Elder
 import com.cloudproject.smartheartrate.ui.SharedViewModel
-import com.cloudproject.smartheartrate.ui.repository.ElderRepository
-import com.google.gson.Gson
-import com.google.gson.internal.LinkedTreeMap
 import kotlinx.android.synthetic.main.fragment_elder_list.*
-import kotlinx.android.synthetic.main.fragment_elder_list.view.*
-import org.json.JSONObject
 
 
 class ElderListFragment : Fragment() {
 
     private val model: SharedViewModel by activityViewModels()
-    private lateinit var elderList: ArrayList<Elder>
     private lateinit var elderListAdapter: ElderListAdapter
 
     override fun onCreateView(
@@ -37,13 +29,26 @@ class ElderListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_elder_list, container, false)
-        return root
+        return inflater.inflate(R.layout.fragment_elder_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getElderList()
+
+        buttonAddElder.setOnClickListener {
+            onCreateDialog()
+        }
+        swipeContainer.setOnRefreshListener {
+            progressBarElderList.visibility = View.VISIBLE
+            elderListAdapter.clear()
+            getElderList()
+            swipeContainer.isRefreshing = false
+        }
+    }
+
+    private fun getElderList() {
         model.getElderList().observe(viewLifecycleOwner, Observer { item ->
             if (item == null) {
                 elderListAdapter = ElderListAdapter(addExampleData())
@@ -60,14 +65,6 @@ class ElderListFragment : Fragment() {
             }
             progressBarElderList.visibility = View.INVISIBLE
         })
-
-        buttonAddElder.setOnClickListener {
-            onCreateDialog()
-        }
-        swipeContainer.setOnRefreshListener {
-//            LongOperation(context!!, view).execute()
-            swipeContainer.isRefreshing = false
-        }
     }
 
     private fun onCreateDialog(): Dialog {
@@ -92,9 +89,7 @@ class ElderListFragment : Fragment() {
                             else
                                 Toast.makeText(context, "Add fail", Toast.LENGTH_SHORT).show()
                         }
-
                     })
-
                 }
                 .setNegativeButton(
                     "Cancel"

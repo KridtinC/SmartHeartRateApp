@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cloudproject.smartheartrate.R
 import com.cloudproject.smartheartrate.model.Elder
-import com.google.gson.internal.LinkedTreeMap
 import kotlinx.android.synthetic.main.list_elders.view.*
 
 class ElderListAdapter(private val items: ArrayList<Elder>) :
