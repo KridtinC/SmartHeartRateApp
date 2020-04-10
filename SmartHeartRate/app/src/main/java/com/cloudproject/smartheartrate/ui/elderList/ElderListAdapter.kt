@@ -5,22 +5,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cloudproject.smartheartrate.R
+import com.cloudproject.smartheartrate.model.Elder
 import com.google.gson.internal.LinkedTreeMap
 import kotlinx.android.synthetic.main.list_elders.view.*
 
-class ElderListAdapter(private val items: ArrayList<LinkedTreeMap<String, Any>>) :
+class ElderListAdapter(private val items: ArrayList<Elder>) :
     RecyclerView.Adapter<ElderListAdapter.ViewHolder>() {
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(elder: LinkedTreeMap<String, Any>) {
+        fun bind(elder: Elder) {
             itemView.apply {
-                elderFirstName.text = elder["firstName"] as CharSequence?
-                elderLastName.text = elder["lastName"] as CharSequence?
-                elderAge.text = (elder["age"] as Double?)?.toInt().toString()
-                elderDeviceID.text = (elder["deviceID"] as Double?)?.toInt().toString()
-                elderLat.text = (elder["lat"] as Double?).toString()
-                elderLng.text = (elder["lng"] as Double?).toString()
+                elderFirstName.text = elder.firstName
+                elderLastName.text = elder.lastName
+                elderAge.text = elder.age.toString()
+                elderDeviceID.text = elder.deviceID.toString()
+                elderLat.text = elder.lat.toString()
+                elderLng.text = elder.lng.toString()
             }
         }
     }
