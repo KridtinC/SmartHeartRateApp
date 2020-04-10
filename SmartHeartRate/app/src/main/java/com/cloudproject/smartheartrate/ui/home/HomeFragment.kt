@@ -11,36 +11,36 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.cloudproject.smartheartrate.R
+import com.cloudproject.smartheartrate.ui.SharedViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
 
     private var MY_PERMISSIONS_REQUEST_ACCESS_LOCATION = 1
     private var mLocation: Location? = null
-    private lateinit var homeViewModel: HomeViewModel
-    private var currentLocation: Location? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var mGoogleMap: GoogleMap
+
+    private val model: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-//        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            //            textView.text = it
-        })
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context!!)
         getLatestLocation()
         return root
@@ -105,9 +105,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        googleMap.isMyLocationEnabled = true;
+        mGoogleMap = googleMap
+        mGoogleMap.isMyLocationEnabled = true;
         if (mLocation != null) {
-            googleMap.animateCamera(
+            mGoogleMap.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(
                         mLocation!!.latitude,
@@ -117,6 +118,19 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 )
             )
         }
+        mGoogleMap.clear()
+        model.getElderList(true).observe(viewLifecycleOwner, Observer { item ->
+            if (item != null){
+                for (i in item){
+                    val markerOptions = MarkerOptions()
+                    val latLng = LatLng(i.lat, i.lng)
+                    markerOptions.position(latLng)
+                    markerOptions.title(latLng.latitude.toString() + " : " + latLng.longitude.toString())
+//                googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+                    mGoogleMap.addMarker(markerOptions)
+                }
+            }
+        })
     }
 
 }
