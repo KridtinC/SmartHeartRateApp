@@ -35,7 +35,7 @@ class ElderListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getElderList()
+        getElderList(false)
 
         buttonAddElder.setOnClickListener {
             onCreateDialog()
@@ -43,13 +43,13 @@ class ElderListFragment : Fragment() {
         swipeContainer.setOnRefreshListener {
             progressBarElderList.visibility = View.VISIBLE
             elderListAdapter.clear()
-            getElderList()
+            getElderList(true)
             swipeContainer.isRefreshing = false
         }
     }
 
-    private fun getElderList() {
-        model.getElderList().observe(viewLifecycleOwner, Observer { item ->
+    private fun getElderList(isRefresh: Boolean) {
+        model.getElderList(isRefresh).observe(viewLifecycleOwner, Observer { item ->
             if (item == null) {
                 elderListAdapter = ElderListAdapter(addExampleData())
                 Toast.makeText(context, "Cannot fetch data from server. Please check your internet connection.", Toast.LENGTH_SHORT).show()
@@ -98,6 +98,7 @@ class ElderListFragment : Fragment() {
                                 Toast.makeText(context, "Add fail", Toast.LENGTH_SHORT).show()
                         }
                     })
+                    getElderList(true)
                 }
                 .setNegativeButton(
                     "Cancel"

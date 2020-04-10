@@ -15,7 +15,10 @@ class SharedViewModel: ViewModel() {
         _elderList = elderRepository.getElderList()
     }
 
-    fun getElderList(): LiveData<ArrayList<Elder>> {
+    fun getElderList(isRefresh: Boolean): LiveData<ArrayList<Elder>> {
+        if(isRefresh){
+            _elderList = elderRepository.getElderList()
+        }
         return _elderList
     }
 
