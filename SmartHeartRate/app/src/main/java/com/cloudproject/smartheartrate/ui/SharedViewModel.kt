@@ -11,8 +11,11 @@ class SharedViewModel: ViewModel() {
     private var _addSuccess = MutableLiveData<Boolean>()
     private var elderRepository = ElderRepository()
 
-    fun getElderList(): LiveData<ArrayList<Elder>> {
+    init {
         _elderList = elderRepository.getElderList()
+    }
+
+    fun getElderList(): LiveData<ArrayList<Elder>> {
         return _elderList
     }
 

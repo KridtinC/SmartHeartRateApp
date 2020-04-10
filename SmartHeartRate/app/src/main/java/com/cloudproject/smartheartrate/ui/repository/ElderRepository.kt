@@ -23,7 +23,6 @@ class ElderRepository {
         .build()
 
     fun getElderList(): MutableLiveData<ArrayList<Elder>> {
-
         val elderList: MutableLiveData<ArrayList<Elder>> = MutableLiveData<ArrayList<Elder>>()
         val body: HashMap<String, String> = HashMap()
         body["email"] = email
