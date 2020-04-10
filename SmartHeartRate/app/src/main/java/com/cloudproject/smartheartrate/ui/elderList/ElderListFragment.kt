@@ -55,6 +55,14 @@ class ElderListFragment : Fragment() {
                 Toast.makeText(context, "Cannot fetch data from server. Please check your internet connection.", Toast.LENGTH_SHORT).show()
             }
             else{
+                if (item.size == 0){
+                    recyclerElders.visibility = View.GONE
+                    noElderDesc.visibility = View.VISIBLE
+                }
+                else{
+                    recyclerElders.visibility = View.VISIBLE
+                    noElderDesc.visibility = View.GONE
+                }
                 Log.d("ElderListFragment", item.toString())
                 elderListAdapter = ElderListAdapter(item)
             }
