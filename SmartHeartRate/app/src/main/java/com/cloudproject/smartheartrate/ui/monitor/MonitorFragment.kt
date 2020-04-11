@@ -40,6 +40,8 @@ class MonitorFragment : Fragment() {
             onFlingListener = null
         }
         viewAdapter.notifyDataSetChanged()
+
+
     }
 
 
