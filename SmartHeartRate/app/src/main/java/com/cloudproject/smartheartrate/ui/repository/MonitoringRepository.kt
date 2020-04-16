@@ -22,9 +22,19 @@ class MonitoringRepository{
         val body:HashMap<String,String> = HashMap()
         body["wtf@gmail.com"] = "123456"
         val req:Call<MonitorResponse>  = retrofit.create(MonitorServices::class.java).getRate(body)
-        req.enqueue(object : Callback<MonitorResponse?>){
-            
-        }
+        req.enqueue(object : Callback<MonitorResponse?>{
+            override fun onFailure(call: Call<MonitorResponse?>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onResponse(
+                call: Call<MonitorResponse?>,
+                response: Response<MonitorResponse?>
+            ) {
+                TODO("Not yet implemented")
+            }
+
+        })
         return elderList
     }
     fun getHostname():String{
