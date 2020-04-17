@@ -16,13 +16,14 @@
         android:src="@drawable/monitor_rect"
         android:paddingHorizontal="12.5dp"
         tools:layout_editor_absoluteX="-8dp"/>
+
     <TextView
         android:id="@+id/monitor_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mr Kuro Ghur"
+        android:text="MR Guro Kuro"
+        app:layout_constraintleft_toLeftOf="@id/info"
         app:layout_constraintTop_toTopOf="@id/info"
-        app:layout_constraintLeft_toLeftOf="@id/info"
         android:paddingHorizontal="30dp"
         android:paddingVertical="10dp"
         android:textSize="25dp"
@@ -41,5 +42,6 @@
         android:text="120"
         android:textSize="75dp"
         android:textColor="@color/colorWhite" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
