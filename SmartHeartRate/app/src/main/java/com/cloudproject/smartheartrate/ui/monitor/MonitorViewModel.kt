@@ -16,7 +16,7 @@ import kotlin.random.Random
 class MonitorViewModel() : ViewModel() {
     private lateinit var user:String
     private var elderNumb = 3
-    private lateinit var elderRate:MutableLiveData<ArrayList<String>>
+    private  var elderRate:MutableLiveData<ArrayList<String>> = MutableLiveData()
     private var rate :ArrayList<String> = arrayListOf<String>("100","120","110")
     private var elderName = arrayListOf<String>("MAKI ADE","KOJO UNO","YUI HATANO")
 
