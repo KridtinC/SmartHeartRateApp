@@ -6,16 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.cloudproject.smartheartrate.R
-import kotlin.properties.Delegates
+import com.cloudproject.smartheartrate.model.Elder
 
 
-class RecyclerAdapter(private val eldername_list: ArrayList<String>, private val elderrate_list: ArrayList<String>) : RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>()  {
+class RecyclerAdapter(private val elderList: ArrayList<Elder>, private val elderrate: ArrayList<String>) : RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>()  {
     class MyViewHolder(private var textview : View):RecyclerView.ViewHolder(textview) , View.OnClickListener{
 
-        fun bindElder(eldernamed:String,elderrated:String){
-            textview.findViewById<TextView>(R.id.monitor_name).text = eldernamed
+        fun bindElder(eldernamed:Elder,elderrated:String){
+            textview.findViewById<TextView>(R.id.monitor_name).text = eldernamed.firstName+" "+eldernamed.lastName
             textview.findViewById<TextView>(R.id.monitor_rate).text = elderrated
 
         }
@@ -30,10 +31,10 @@ class RecyclerAdapter(private val eldername_list: ArrayList<String>, private val
         return MyViewHolder(textview)
     }
 
-    override fun getItemCount() = eldername_list.size
+    override fun getItemCount() = elderList.size
 
     override fun onBindViewHolder(holder: RecyclerAdapter.MyViewHolder, position: Int) {
-        holder.bindElder(this.eldername_list[position],this.elderrate_list[position])
+        holder.bindElder(elderList[position],elderrate[position])
     }
 
 
