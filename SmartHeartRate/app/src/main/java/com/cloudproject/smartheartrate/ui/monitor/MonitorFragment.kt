@@ -20,8 +20,8 @@ class MonitorFragment : Fragment() {
     private var elderList:SharedViewModel = SharedViewModel()
 //    private lateinit var recyclerView :RecyclerView
 
-    private lateinit var elderInfo: ArrayList<Elder>  // from getElderResponse
-    private lateinit var elderRate : ArrayList<String>
+    private var elderInfo: ArrayList<Elder> = ArrayList() // from getElderResponse
+    private  var elderRate : ArrayList<String> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         monitorViewModel = ViewModelProviders.of(this).get(MonitorViewModel::class.java)
@@ -57,7 +57,7 @@ class MonitorFragment : Fragment() {
                     monitor_recyclerView.visibility = View.VISIBLE
                     noElderDesc.visibility = View.GONE
                 }
-                this.elderInfo = item
+                elderInfo = item
                 monitorViewModel.setElderNumb(item.size)
             }
         })
