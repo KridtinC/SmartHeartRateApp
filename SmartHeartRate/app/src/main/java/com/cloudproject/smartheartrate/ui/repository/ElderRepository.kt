@@ -18,7 +18,7 @@ private const val email = "aaa@gmail.com"
 class ElderRepository {
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://$hostname:5000/api/")
+        .baseUrl("http://3.1.51.17:5000")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

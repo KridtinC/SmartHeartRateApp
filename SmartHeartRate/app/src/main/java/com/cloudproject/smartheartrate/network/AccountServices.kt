@@ -8,10 +8,10 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface AccountServices {
-    @POST("elder-account/get-elderlist")
+    @POST("/api/elder-account/get-elderlist")
     fun getElderList(@Body params: HashMap<String, String>): Call<ElderListResponse>
 
-    @POST("elder-account/add-elder")
+    @POST("/api/elder-account/add-elder")
     fun addElder(@Body params: HashMap<String, String>): Call<AddElderResponse>
 
 }

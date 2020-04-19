@@ -17,28 +17,33 @@ class MonitorViewModel() : ViewModel() {
     private lateinit var user:String
     private var elderNumb = 3
     private  var elderRate:MutableLiveData<ArrayList<String>> = MutableLiveData()
-    private var rate :ArrayList<String> = arrayListOf<String>("100","120","110")
+//    private  var rate :ArrayList<String>
     private var elderName = arrayListOf<String>("MAKI ADE","KOJO UNO","YUI HATANO")
 
-    private var elderRepository = ElderRepository()
-    private lateinit var elderLists:ArrayList<Elder>
+    init {
+        elderRate.value = randomRate()
+    }
 
     fun setElderNumb(numb : Int)  {
         elderNumb = numb
+        startTimerLoop()
     }
+    private fun startTimerLoop() {
 
-    fun getElderRate() : MutableLiveData<ArrayList<String>> {
-        val timer= object :CountDownTimer(3,1){
+
+        val timer = object:CountDownTimer(200,1) {
             override fun onFinish() {
                 elderRate.value = randomRate()
+
             }
 
             override fun onTick(millisUntilFinished: Long) {
-                TODO("Not yet implemented")
+//                elderRate.value = randomRate()
             }
-
         }
         timer.start()
+    }
+    fun getElderRate() : MutableLiveData<ArrayList<String>> {
 
         return elderRate
     }
@@ -50,10 +55,9 @@ class MonitorViewModel() : ViewModel() {
             for(each in 1..elderNumb){
                 out.add(Random.nextInt(70,200).toString())
             }
-            rate = out
         }
 
-        return rate
+        return out
     }
     // send request to business logic
 
