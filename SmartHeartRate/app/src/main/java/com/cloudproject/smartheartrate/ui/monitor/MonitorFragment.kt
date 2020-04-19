@@ -36,7 +36,7 @@ class MonitorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 //        val rate = monitorViewModel.rate.observe(viewLifecycleOwner)
 //        viewAdapter.reset()
-        getElderList(false)
+        getElderList(true)
         getElderRate()
 //        monitor_swipeRefresh.setOnRefreshListener {
 //            viewAdapter.reset()
@@ -50,7 +50,6 @@ class MonitorFragment : Fragment() {
 
         viewAdapter = RecyclerAdapter(elderInfo,elderRate)
         val ori = resources.configuration.orientation
-
         monitor_recyclerView.apply{
             layoutManager = LinearLayoutManager(context,ori,false)
             adapter = viewAdapter
@@ -63,15 +62,16 @@ class MonitorFragment : Fragment() {
             if(item==null){
                 Toast.makeText(context, "Cannot fetch data from server. Please check your internet connection.", Toast.LENGTH_SHORT).show()
             }else {
-                if(item.size==0) {
-                    monitor_recyclerView.visibility = View.GONE
-                    noElderDesc.visibility = View.VISIBLE
-                }else {
-                    monitor_recyclerView.visibility = View.VISIBLE
-                    noElderDesc.visibility = View.GONE
-                }
-                this.elderInfo = item
+//                if(item.size==0) {
+//                    monitor_recyclerView.visibility = View.GONE
+//                    noElderDesc.visibility = View.VISIBLE
+//                }else {
+//                    monitor_recyclerView.visibility = View.VISIBLE
+//                    noElderDesc.visibility = View.GONE
+//                }
                 monitorViewModel.setElderNumb(item.size)
+                elderInfo = item
+
 
             }
 //            createAdapter()
@@ -81,8 +81,10 @@ class MonitorFragment : Fragment() {
 
     private fun getElderRate() {
         monitorViewModel.getElderRate().observe(viewLifecycleOwner, Observer { item ->
-            this.elderRate = item
-            createAdapter()
+            if(item!=null) {
+                this.elderRate = item
+                createAdapter()
+            }
         })
 
     }

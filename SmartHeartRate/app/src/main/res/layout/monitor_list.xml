@@ -39,7 +39,7 @@
         app:layout_constraintRight_toRightOf="@id/info"
         android:layout_marginTop="25dp"
         android:gravity="center_horizontal"
-        android:text="120"
+        tools:text="120"
         android:textSize="75dp"
         android:textColor="@color/colorWhite" />
 

@@ -2,6 +2,7 @@ package com.cloudproject.smartheartrate.ui.monitor
 
 import android.os.CountDownTimer
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,38 +11,36 @@ import androidx.lifecycle.*
 import com.cloudproject.smartheartrate.model.Elder
 import com.cloudproject.smartheartrate.ui.SharedViewModel
 import com.cloudproject.smartheartrate.ui.repository.ElderRepository
+import java.util.*
 import java.util.logging.Handler
+import kotlin.collections.ArrayList
 import kotlin.random.Random
 
 class MonitorViewModel() : ViewModel() {
-    private lateinit var user:String
-    private var elderNumb = 3
+
+    private var elderNumb = 0
+    private  var timer:Timer = Timer()
     private  var elderRate:MutableLiveData<ArrayList<String>> = MutableLiveData()
+    private lateinit var rec :ArrayList<String>
 //    private  var rate :ArrayList<String>
     private var elderName = arrayListOf<String>("MAKI ADE","KOJO UNO","YUI HATANO")
-
-    init {
-        elderRate.value = randomRate()
-    }
 
     fun setElderNumb(numb : Int)  {
         elderNumb = numb
         startTimerLoop()
+        rec = ArrayList()
+        for(i in 1 until elderNumb+1) {
+//            Log.d("value",i.toString())
+            rec.add(Random.nextInt(70,120).toString())
+        }
     }
     private fun startTimerLoop() {
-
-
-        val timer = object:CountDownTimer(200,1) {
-            override fun onFinish() {
-                elderRate.value = randomRate()
-
+        timer.scheduleAtFixedRate(
+            object:TimerTask() {
+            override fun run() {
+                elderRate.postValue(randomRate())
             }
-
-            override fun onTick(millisUntilFinished: Long) {
-//                elderRate.value = randomRate()
-            }
-        }
-        timer.start()
+        },0,2000)
     }
     fun getElderRate() : MutableLiveData<ArrayList<String>> {
 
@@ -50,14 +49,19 @@ class MonitorViewModel() : ViewModel() {
 
     fun randomRate() : ArrayList<String> {
         val out:ArrayList<String> = ArrayList()
-        val change = Random.nextBoolean()
-        if(change){
-            for(each in 1..elderNumb){
-                out.add(Random.nextInt(70,200).toString())
+
+        for(value in rec){
+//            Log.d("Value",value)
+            if(Random.nextBoolean()){
+                out.add(Random.nextInt(70, 180).toString())
+            }else {
+                out.add(value)
             }
         }
 
-        return out
+        rec = out
+        Log.d("ElderRateValue",out.toString())
+        return rec
     }
     // send request to business logic
 
