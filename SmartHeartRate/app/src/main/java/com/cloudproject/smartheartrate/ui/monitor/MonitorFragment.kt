@@ -22,7 +22,7 @@ class MonitorFragment : Fragment() {
     private lateinit var monitorViewModel: MonitorViewModel
     private var elderList:SharedViewModel = SharedViewModel()
     private lateinit var viewAdapter : RecyclerAdapter
-    private lateinit var token : MonitorSendMessage
+    private var token : MonitorSendMessage = MonitorSendMessage()
 
     private var elderInfo: ArrayList<Elder> = ArrayList() // from getElderResponse
     private  var elderRate : ArrayList<String> = ArrayList()

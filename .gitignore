@@ -94,3 +94,4 @@ account-services/config.js
 # authen-services
 authen-services/node_modules/
 authen-services/config.js
+SmartHeartRate/app/google-services.json

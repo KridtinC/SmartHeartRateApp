@@ -7,11 +7,10 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessagingService
 
 class MonitorSendMessage {
-    private lateinit var message: FirebaseInstanceId
+//    private lateinit var message: FirebaseInstanceId
 
     fun getToken()  {
-
-        message.instanceId.addOnCompleteListener {task ->
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener{task->
             if(!task.isSuccessful){
                 Log.d("Message","GetInstanceFailed",task.exception)
 
@@ -20,6 +19,7 @@ class MonitorSendMessage {
                 Log.d("Message",token)
             }
         }
+
     }
 
 
