@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "749923425286",
+    "firebase_url": "https://smartwatch-8feac.firebaseio.com",
+    "project_id": "smartwatch-8feac",
+    "storage_bucket": "smartwatch-8feac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749923425286:android:33e3753240a99edb25f787",
+        "android_client_info": {
+          "package_name": "com.DPLOP_9.SmartWatch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749923425286-oq3tcbh29khdu8kr5aitap8vqvgcukch.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACJP5YzDyA8mEtxfV8VbsXmfG6bV9HGhs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "749923425286-oq3tcbh29khdu8kr5aitap8vqvgcukch.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749923425286:android:aea89f0c7bc5961625f787",
+        "android_client_info": {
+          "package_name": "com.cloudproject.smartheartrate.ui.monitor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749923425286-oq3tcbh29khdu8kr5aitap8vqvgcukch.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACJP5YzDyA8mEtxfV8VbsXmfG6bV9HGhs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "749923425286-oq3tcbh29khdu8kr5aitap8vqvgcukch.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

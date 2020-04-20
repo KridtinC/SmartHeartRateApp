@@ -1,16 +1,11 @@
 package com.cloudproject.smartheartrate.ui.monitor
 
-import android.os.CountDownTimer
-import android.os.Looper
+
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
+
 import androidx.lifecycle.*
-import com.cloudproject.smartheartrate.model.Elder
-import com.cloudproject.smartheartrate.ui.SharedViewModel
-import com.cloudproject.smartheartrate.ui.repository.ElderRepository
+import com.google.firebase.iid.FirebaseInstanceId
+
 import java.util.*
 import java.util.logging.Handler
 import kotlin.collections.ArrayList

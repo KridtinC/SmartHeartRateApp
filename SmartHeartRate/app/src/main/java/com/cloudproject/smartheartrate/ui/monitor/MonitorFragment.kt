@@ -22,7 +22,7 @@ class MonitorFragment : Fragment() {
     private lateinit var monitorViewModel: MonitorViewModel
     private var elderList:SharedViewModel = SharedViewModel()
     private lateinit var viewAdapter : RecyclerAdapter
-
+    private lateinit var token : MonitorSendMessage
 
     private var elderInfo: ArrayList<Elder> = ArrayList() // from getElderResponse
     private  var elderRate : ArrayList<String> = ArrayList()
@@ -38,12 +38,16 @@ class MonitorFragment : Fragment() {
 //        viewAdapter.reset()
         getElderList(true)
         getElderRate()
+        getToken()
 //        monitor_swipeRefresh.setOnRefreshListener {
 //            viewAdapter.reset()
 //            getElderList(true)
 //            getElderRate()
 //            createAdapter()
 //        }
+    }
+    private fun getToken() {
+        token.getToken()
     }
     private fun createAdapter() {
 //        if(elderRate.size==0) return
@@ -74,7 +78,7 @@ class MonitorFragment : Fragment() {
 
 
             }
-//            createAdapter()
+
         })
 
     }
