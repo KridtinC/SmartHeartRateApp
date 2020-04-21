@@ -1,5 +1,6 @@
 package com.cloudproject.smartheartrate.ui.home
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.location.Location
@@ -29,6 +30,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private var mLocation: Location? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var mGoogleMap: GoogleMap
+    private lateinit var email: String
 
     private val model: SharedViewModel by activityViewModels()
 
@@ -40,6 +42,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context!!)
         getLatestLocation()
+        email =context?.getSharedPreferences("Authentication", Context.MODE_PRIVATE)?.getString("email", null)?: "aaa@gmail.com"
         return root
     }
 
@@ -105,7 +108,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         mGoogleMap = googleMap
         mGoogleMap.isMyLocationEnabled = true;
         mGoogleMap.clear()
-        model.getElderList(false).observe(viewLifecycleOwner, Observer { item ->
+        var isRefresh = model.getElderList(email,false).value == null
+        model.getElderList(email, isRefresh).observe(viewLifecycleOwner, Observer { item ->
             if (item != null){
                 val builder = LatLngBounds.Builder()
                 for (i in item){

@@ -1,0 +1,16 @@
+[
+    {
+        "name": "smart-heartrate-account-containerdef",
+        "image": "697970812865.dkr.ecr.ap-southeast-1.amazonaws.com/smart-heartrate-account-repo:test-1587230641",
+        "essential": true,
+        "portMappings": [
+            {
+                "containerPort": 5000,
+                "hostPort": 5000,
+                "protocol": "tcp"
+            }
+        ],
+        "memory": 300,
+        "cpu": 1
+    }
+]

@@ -1,6 +1,7 @@
 package com.cloudproject.smartheartrate.ui.elderList
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,11 +19,11 @@ import com.cloudproject.smartheartrate.model.Elder
 import com.cloudproject.smartheartrate.ui.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_elder_list.*
 
-
 class ElderListFragment : Fragment() {
 
     private val model: SharedViewModel by activityViewModels()
     private lateinit var elderListAdapter: ElderListAdapter
+    private lateinit var email: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,8 +35,9 @@ class ElderListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        getElderList(false)
+        email =context?.getSharedPreferences("Authentication", Context.MODE_PRIVATE)?.getString("email", null)?: "aaa@gmail.com"
+        Log.d("ElderListFragment", email)
+        getElderList(email, false)
 
         buttonAddElder.setOnClickListener {
             onCreateDialog()
@@ -43,15 +45,15 @@ class ElderListFragment : Fragment() {
         swipeContainer.setOnRefreshListener {
             progressBarElderList.visibility = View.VISIBLE
             elderListAdapter.clear()
-            getElderList(true)
+            getElderList(email, true)
             swipeContainer.isRefreshing = false
         }
     }
 
-    private fun getElderList(isRefresh: Boolean) {
-        model.getElderList(isRefresh).observe(viewLifecycleOwner, Observer { item ->
+    private fun getElderList(email: String, isRefresh: Boolean) {
+        model.getElderList(email, isRefresh).observe(viewLifecycleOwner, Observer { item ->
             if (item == null) {
-                elderListAdapter = ElderListAdapter(addExampleData())
+                elderListAdapter = ElderListAdapter(ArrayList())
                 Toast.makeText(context, "Cannot fetch data from server. Please check your internet connection.", Toast.LENGTH_SHORT).show()
             }
             else{
@@ -90,15 +92,16 @@ class ElderListFragment : Fragment() {
                     val lat = view.findViewById<EditText>(R.id.addElderLat).text.toString().toDouble()
                     val lng = view.findViewById<EditText>(R.id.addElderLng).text.toString().toDouble()
                     val elder = Elder(-1, firstName, lastName, age, lat , lng)
-                    model.addElder(elder).observe(viewLifecycleOwner, Observer { item ->
+                    model.addElder(email, elder).observe(viewLifecycleOwner, Observer { item ->
                         if (item != null){
-                            if (item == true)
+                            if (item == true) {
+                                getElderList(email, true)
                                 Toast.makeText(context, "Add successful", Toast.LENGTH_SHORT).show()
+                            }
                             else
                                 Toast.makeText(context, "Add fail", Toast.LENGTH_SHORT).show()
                         }
                     })
-                    getElderList(true)
                 }
                 .setNegativeButton(
                     "Cancel"

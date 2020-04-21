@@ -13,7 +13,6 @@ ECS_CLUSTER_NAME='cloud2019-smart-heartrate'
 ECS_SERVICE_NAME='smart-heartrate-account-services'
 ECS_TASK_DEFINITION_NAME='smart-heartrate-account-task'
 ECR_NAME='smart-heartrate-account-repo'
-ECR_URI='YOUR_AWS_ACCOUNT_NUMBER.dkr.ecr.ap-southeast-1.amazonaws.com'
 VERSION=$(date +%s)
 AWSCLI_VER_TAR=1.11.91
 # END DEFINITIONS OF VARIABLES #
@@ -75,13 +74,28 @@ fi
 echo "You are deploying ${BRANCH} to ${ENVIRONMENT}."
 
 # Docker/ECR operations
+# (
+#   cd "${DIR}/.."
+
+#   docker build --pull -t "${ECR_NAME}:latest" -f ./Dockerfile .
+#   docker tag "${ECR_NAME}:latest" "${ECR_URI}/${ECR_NAME}:${ENVIRONMENT}-${VERSION}"
+#   aws ecr get-login-password --region "${ECS_REGION}"
+#   docker push "${ECR_URI}/${ECR_NAME}:${ENVIRONMENT}-${VERSION}"
+
+# )
+
+# ECS operations
 (
   cd "${DIR}/.."
-
-  docker build --pull -t "${ECR_NAME}:latest" -f ./Dockerfile .
-  docker tag "${ECR_NAME}:latest" "${ECR_URI}/${ECR_NAME}:${ENVIRONMENT}-${VERSION}"
-  aws ecr get-login-password --region "${ECS_REGION}"
-  docker push "${ECR_URI}/${ECR_NAME}:${ENVIRONMENT}-${VERSION}"
-
-)
-
+  # Create the new ECS container definition from the last task definition
+  CONTAINER_DEF=$(cat ./deployment/container_definition.json)
+  echo ${CONTAINER_DEF}
+  # aws ecs register-task-definition --region "${ECS_REGION}" --family "${ECS_TASK_DEFINITION_NAME}-${ENVIRONMENT}" --container-definitions "${CONTAINER_DEF}" --memory 1024 --cpu 256
+  # aws ecs create-cluster --cluster-name "${ECS_CLUSTER_NAME}"
+  aws ecs create-service \
+    --cluster "${ECS_CLUSTER_NAME}" \
+    --service-name ${ECS_SERVICE_NAME} \
+    --task-definition "${ECS_TASK_DEFINITION_NAME}-${ENVIRONMENT}":5 \
+    --desired-count 1
+  # aws ecs update-service --region "${ECS_REGION}" --cluster "${ECS_CLUSTER_NAME}" --service "${ECS_SERVICE_NAME}-${ENVIRONMENT}"  --task-definition "${ECS_TASK_DEFINITION_NAME}-${ENVIRONMENT}"
+ )

@@ -1,5 +1,6 @@
 package com.cloudproject.smartheartrate.ui
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,19 +12,15 @@ class SharedViewModel: ViewModel() {
     private var _addSuccess = MutableLiveData<Boolean>()
     private var elderRepository = ElderRepository()
 
-    init {
-        _elderList = elderRepository.getElderList()
-    }
-
-    fun getElderList(isRefresh: Boolean): LiveData<ArrayList<Elder>> {
+    fun getElderList(email: String, isRefresh: Boolean): LiveData<ArrayList<Elder>> {
         if(isRefresh){
-            _elderList = elderRepository.getElderList()
+            _elderList = elderRepository.getElderList(email)
         }
         return _elderList
     }
 
-    fun addElder(elder: Elder): MutableLiveData<Boolean> {
-        _addSuccess = elderRepository.addElder(elder)
+    fun addElder(email: String, elder: Elder): MutableLiveData<Boolean> {
+        _addSuccess = elderRepository.addElder(email, elder)
         return _addSuccess
     }
 }
