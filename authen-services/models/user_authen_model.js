@@ -4,7 +4,7 @@ exports.register = async function (email, password, firstName, lastName) {
     return new Promise(async function (resolve, reject) {
         connection.getConnection(async function (err, conn) {
             try {
-                var sql = "insert into user (email, password, firstName, lastName)\
+                var sql = "insert into User (email, password, firstName, lastName)\
                 value (?, ?, ?, ?)"
                 var params = [email, password, firstName, lastName]
                 await conn.query(sql, params, (err, res) => {
@@ -32,7 +32,7 @@ exports.login = async function (email, password) {
     return new Promise(async function (resolve, reject) {
         connection.getConnection(async function (err, conn) {
             try {
-                var sql = "select u.email, u.password from user u\
+                var sql = "select u.email, u.password from User u\
                 where email = ?"
                 var params = [email]
                 await conn.query(sql, params, (err, res) => {
