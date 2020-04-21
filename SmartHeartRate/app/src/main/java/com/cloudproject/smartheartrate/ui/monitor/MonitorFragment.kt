@@ -46,6 +46,12 @@ class MonitorFragment : Fragment() {
 //            createAdapter()
 //        }
     }
+
+    override fun onPause() {
+        super.onPause()
+        monitorViewModel.stopTimer()
+    }
+
     private fun getToken() {
         token.getToken()
     }
