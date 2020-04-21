@@ -12,17 +12,16 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val hostname = "192.168.1.36"
-private const val email = "aaa@gmail.com"
+private const val hostname = "3.1.51.17"
 
 class ElderRepository {
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://3.1.51.17:5000")
+        .baseUrl("http://$hostname:5000")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    fun getElderList(): MutableLiveData<ArrayList<Elder>> {
+    fun getElderList(email: String): MutableLiveData<ArrayList<Elder>> {
         val elderList: MutableLiveData<ArrayList<Elder>> = MutableLiveData<ArrayList<Elder>>()
         val body: HashMap<String, String> = HashMap()
         body["email"] = email
@@ -46,7 +45,7 @@ class ElderRepository {
         return elderList
     }
 
-    fun addElder(elder: Elder): MutableLiveData<Boolean> {
+    fun addElder(email: String, elder: Elder): MutableLiveData<Boolean> {
         val addSuccess: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
         val body: HashMap<String, String> = HashMap()
         body["email"] = email

@@ -1,5 +1,6 @@
 package com.cloudproject.smartheartrate.ui.monitor
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -26,6 +27,7 @@ class MonitorFragment : Fragment() {
 
     private var elderInfo: ArrayList<Elder> = ArrayList() // from getElderResponse
     private  var elderRate : ArrayList<String> = ArrayList()
+    private lateinit var email: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         monitorViewModel = ViewModelProviders.of(this).get(MonitorViewModel::class.java)
@@ -34,6 +36,7 @@ class MonitorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        email =context?.getSharedPreferences("Authentication", Context.MODE_PRIVATE)?.getString("email", null)?: "aaa@gmail.com"
 //        val rate = monitorViewModel.rate.observe(viewLifecycleOwner)
 //        viewAdapter.reset()
         getElderList(true)
@@ -62,7 +65,7 @@ class MonitorFragment : Fragment() {
 
     }
     private fun getElderList(isRefresh:Boolean) {
-        elderList.getElderList(isRefresh).observe(viewLifecycleOwner,Observer{ item->
+        elderList.getElderList(email, isRefresh).observe(viewLifecycleOwner,Observer{ item->
             if(item==null){
                 Toast.makeText(context, "Cannot fetch data from server. Please check your internet connection.", Toast.LENGTH_SHORT).show()
             }else {
