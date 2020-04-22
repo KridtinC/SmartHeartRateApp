@@ -23,7 +23,6 @@ class MonitorViewModel() : ViewModel() {
     fun setElderNumb(numb : Int)  {
         elderNumb = numb
         startTimerLoop()
-
         rec = ArrayList()
         for(i in 1 until elderNumb+1) {
 //            Log.d("value",i.toString())
@@ -31,18 +30,12 @@ class MonitorViewModel() : ViewModel() {
         }
     }
     private fun startTimerLoop() {
-
         timer.scheduleAtFixedRate(
             object:TimerTask() {
             override fun run() {
                 elderRate.postValue(randomRate())
             }
         },0,2000)
-    }
-    fun stopTimer() {
-
-
-        timer.cancel()
     }
     fun getElderRate() : MutableLiveData<ArrayList<String>> {
 
