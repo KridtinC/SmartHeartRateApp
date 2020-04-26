@@ -10,9 +10,9 @@ set -e
 # BEGIN DEFINITIONS OF VARIABLES #
 ECS_REGION='ap-southeast-1'
 ECS_CLUSTER_NAME='cloud2019-smart-heartrate'
-ECS_SERVICE_NAME='smart-heartrate-account-services'
-ECS_TASK_DEFINITION_NAME='smart-heartrate-account-task'
-ECR_NAME='smart-heartrate-account-repo'
+ECS_SERVICE_NAME='smart-heartrate-authen-services'
+ECS_TASK_DEFINITION_NAME='smart-heartrate-authen-task'
+ECR_NAME='smart-heartrate-authen-repo'
 
 AWS_ID=''
 VERSION=$(date +%s)
